@@ -33,9 +33,8 @@ export function getBlogPosts() {
   return getMdxData(path.join(process.cwd(), "src", "app", "blog", "contents"));
 }
 
-export function formatDate(date: string, includeRelative = false) {
+export function formatDate(date: string, includeRelative = true) {
   let currentDate = new Date();
-
   if (!date.includes("T")) {
     date = `${date}T00:00:00`;
   }
@@ -52,14 +51,13 @@ export function formatDate(date: string, includeRelative = false) {
     formattedDate = `${yearsAgo}y ago`;
   } else if (monthsAgo > 0) {
     formattedDate = `${monthsAgo}mo ago`;
-  }
-  if (daysAgo > 0) {
+  } else if (daysAgo > 0) {
     formattedDate = `${daysAgo}d ago`;
   } else {
     formattedDate = "Today";
   }
 
-  let fullDate = targetDate.toLocaleString("en-in", {
+  let fullDate = targetDate.toLocaleString("en-us", {
     month: "long",
     day: "numeric",
     year: "numeric",
@@ -68,5 +66,6 @@ export function formatDate(date: string, includeRelative = false) {
   if (!includeRelative) {
     return fullDate;
   }
+
   return `${fullDate} (${formattedDate})`;
 }
