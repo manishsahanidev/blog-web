@@ -14,6 +14,8 @@ import {
     NavigationMenuTrigger,
     navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
+import { Icons } from "./icons"
+import { ModeToggle } from "./ui/mode-toggle"
 
 const posts: { title: string; href: string; description: string }[] = [
     {
@@ -54,12 +56,13 @@ const posts: { title: string; href: string; description: string }[] = [
     },
 ]
 
-export function MainNav() {
+export function MainNav({ className }: { className?: string }) {
     return (
-        <div className={cn("flex flex-col items-start md:flex-row md:items-center md:justify-between pt-10 z-50")}>
+        <div className={cn("flex flex-col items-start md:flex-row md:items-center md:justify-between pt-10 z-50", className)}>
             <Link href={"/"}>
-                <div>
+                <div className="flex items-center justify-between w-[170px]">
                     {/* Logo Icon */}
+                    <Icons.logo className="h-7 w-7" />
                     <p>Genius Developer</p>
                 </div>
             </Link>
@@ -88,8 +91,16 @@ export function MainNav() {
                             </NavigationMenuLink>
                         </Link>
                     </NavigationMenuItem>
+
+
                 </NavigationMenuList>
             </NavigationMenu>
+            <div className="flex items-center justify-between w-20">
+                <ModeToggle />
+                <Link href={"/rss"}>
+                    <Icons.rss className="h-6 w-6" />
+                </Link>
+            </div>
         </div>
     )
 }
