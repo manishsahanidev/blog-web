@@ -16,54 +16,16 @@ import {
 } from "@/components/ui/navigation-menu"
 import { Icons } from "./icons"
 import { ModeToggle } from "./ui/mode-toggle"
-
-const posts: { title: string; href: string; description: string }[] = [
-    {
-        title: "React",
-        href: "/blog/react",
-        description:
-            "Learn React.js and Next.js with our tutorials, guides, and examples.",
-    },
-    {
-        title: "Javascript",
-        href: "/blog/javascript",
-        description:
-            "Learn Javascript with our tutorials, guides, and examples.",
-    },
-    {
-        title: "CSS",
-        href: "/blog/css",
-        description:
-            "Learn CSS with our tutorials, guides, and examples.",
-    },
-    {
-        title: "Java",
-        href: "/blog/java",
-        description:
-            "Learn Java with our tutorials, guides, and examples.",
-    },
-    {
-        title: "Spring Boot",
-        href: "/blog/springboot",
-        description:
-            "Learn SpringBoot with our tutorials, guides, and examples.",
-    },
-    {
-        title: "NodeJS",
-        href: "/blog/nodejs",
-        description:
-            "Learn Node.js and Express.js with our tutorials, guides, and examples.",
-    },
-]
+import { POSTS } from "@/lib/constants"
 
 export function MainNav({ className }: { className?: string }) {
     return (
         <div className={cn("flex flex-col items-start md:flex-row md:items-center md:justify-between pt-10 z-50", className)}>
             <Link href={"/"}>
-                <div className="flex items-center justify-between w-[170px]">
+                <div className="flex items-center justify-between w-36 font-bold">
                     {/* Logo Icon */}
                     <Icons.logo className="h-7 w-7" />
-                    <p>Genius Developer</p>
+                    <p>Code Connect</p>
                 </div>
             </Link>
             <NavigationMenu>
@@ -72,7 +34,7 @@ export function MainNav({ className }: { className?: string }) {
                         <NavigationMenuTrigger>Posts</NavigationMenuTrigger>
                         <NavigationMenuContent>
                             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                                {posts.map((post) => (
+                                {POSTS.map((post) => (
                                     <ListItem
                                         key={post.title}
                                         title={post.title}
