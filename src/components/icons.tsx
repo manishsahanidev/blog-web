@@ -11,5 +11,6 @@ export type Icon = typeof LucidIcon;
 
 export const Icons = {
     logo: Webhook,
-    rss: Rss
+    rss: Rss,
+    arrowRight: ArrowRight,
 } 
