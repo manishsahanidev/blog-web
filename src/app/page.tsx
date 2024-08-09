@@ -1,5 +1,5 @@
 import { MainNav } from "@/components/main-nav";
-import LatestPosts from "@/components/home/LatestPosts";
+import LatestPosts from "@/components/home/latest-posts";
 import Container from "@/components/Container";
 import TopCategories from "@/components/home/top-categories";
 import PopularPosts from "@/components/home/popular-posts";
