@@ -33,6 +33,16 @@ export function getBlogPosts() {
   return getMdxData(path.join(process.cwd(), "src", "app", "blog", "contents"));
 }
 
+export function getTermsOfServices() {
+  return getMdxData(
+    path.join(process.cwd(), "src", "app", "terms-of-services")
+  );
+}
+
+export function getPrivacyPolicy() {
+  return getMdxData(path.join(process.cwd(), "src", "app", "privacy-policy"));
+}
+
 export function formatDate(date: string, includeRelative = true) {
   let currentDate = new Date();
   if (!date.includes("T")) {
