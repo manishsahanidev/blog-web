@@ -5,11 +5,11 @@ import Container from "@/components/Container";
 import { BreadcrumbWithCustomSeparator } from "@/components/BreadCrumb";
 import { CustomMDX } from "@/components/mdx";
 
-export async function getStaticParams() {
+export async function generateStaticParams() {
     let posts = getBlogPosts();
 
     return posts.map((post) => ({
-        slug: post.metadata.category,
+        slug: post.slug,
     }))
 }
 
