@@ -5,6 +5,7 @@ import Container from "@/components/Container";
 import { BreadcrumbWithCustomSeparator } from "@/components/BreadCrumb";
 import { CustomMDX } from "@/components/mdx";
 import ReportViews from "@/components/ReportView";
+import { baseUrl } from "@/app/sitemap";
 
 export async function generateStaticParams() {
     let posts = getBlogPosts();
@@ -13,6 +14,47 @@ export async function generateStaticParams() {
         slug: post.slug,
     }));
 };
+
+export function generateMetadata({
+    params,
+}: {
+    params: { slug: string; category: string };
+}) {
+    let post = getBlogPosts().find((post) => post.slug === params.slug);
+    if (!post) {
+        return;
+    }
+
+    let {
+        title,
+        publishedAt: publishedTime,
+        summary: description,
+        image,
+    } = post.metadata;
+
+    let ogImage = image
+        ? image
+        : `${baseUrl}/og?title=${encodeURIComponent(title)}`;
+
+    return {
+        title,
+        description,
+        openGraph: {
+            title,
+            description,
+            type: "article",
+            publishedTime,
+            url: `${baseUrl}/blog/${post?.metadata.category}/${post?.slug}}`,
+            images: [{ url: ogImage }],
+        },
+        twitter: {
+            card: "summary_large_image",
+            title,
+            description,
+            images: [ogImage],
+        },
+    };
+}
 
 export default function Page({
     params,
@@ -27,6 +69,28 @@ export default function Page({
 
     return (
         <>
+            <script
+                type="application/ld+json"
+                suppressHydrationWarning
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "BlogPosting",
+                        headline: post.metadata.title,
+                        datePublished: post.metadata.publishedAt,
+                        dateModified: post.metadata.publishedAt,
+                        description: post.metadata.summary,
+                        image: post.metadata.image
+                            ? `${baseUrl}${post.metadata.image}`
+                            : `/og?title=${encodeURIComponent(post.metadata.title)}`,
+                        url: `${baseUrl}/blog/${post.metadata.category}/${post.slug}`,
+                        author: {
+                            "@type": "Person",
+                            name: "Code Connect Blog",
+                        },
+                    }),
+                }}
+            />
             <ReportViews category={post.metadata.category} title={post.metadata.title} slug={post.slug} />
             <Header>
                 <Container>
